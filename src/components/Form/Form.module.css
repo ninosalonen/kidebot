@@ -1,0 +1,67 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.formLabel {
+    display: flex;
+    flex-direction: column;
+}
+
+.guideBtn {
+    margin: 0.5rem;
+}
+
+.formBtn {
+    margin: 1rem;
+}
+
+.guideBtn {
+    position: fixed;
+    top: 0;
+    left: 0;
+    font-size: x-large;
+    font-weight: bolder;
+    color: white;
+    border: 0px;
+    background-color: transparent;
+}
+
+.guideBtn:focus, .guideBtn:hover {
+    color: black;
+}
+
+.formField {
+    width: 90vw;
+    max-width: 60ch;
+    margin-bottom: 1rem;
+    padding: 0.3rem;
+    border: 1px solid white;
+    resize: none;
+}
+
+.formField:focus {
+    outline: none !important;
+    border: 1px solid black;
+}
+
+.formRadio {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.formNotif {
+    text-align: center;
+    width: 90vw;
+    max-width: 60ch;
+    word-break: break-all;
+    background-color: rgba(0,0,0,0.25);
+    margin-top: 0.5rem;
+    padding: 1rem;
+}
