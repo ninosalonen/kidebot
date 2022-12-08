@@ -24,7 +24,7 @@ pub async fn wait_for_variants(url: String) -> Result<Value, reqwest::Error> {
     }
     let api_url = format!("https://api.kide.app/api/products/{}", event_id);
 
-    for _ in 1..500 {
+    for _ in 0..200 {
         let variants = fetch_variants(&api_url).await?;
         match &variants {
             Value::Array(arr) => {
@@ -35,7 +35,9 @@ pub async fn wait_for_variants(url: String) -> Result<Value, reqwest::Error> {
             _ => (),
         }
     }
-    Ok(Value::Null)
+    Ok(Value::String(
+        "Lipunmyynti ei ikinä alkanut tai se on loppunut jo.".to_string(),
+    ))
 }
 
 pub async fn get_tickets(
