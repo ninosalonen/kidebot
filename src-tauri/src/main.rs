@@ -20,7 +20,7 @@ async fn main_tickets(
     match variants {
         Ok(serde_json::Value::Null) => return String::from("Event URL on aika varmasti väärin..."),
         Ok(serde_json::Value::Array(arr)) => {
-            let parsed_variants = parser::parse_variants(arr, &str_include, &str_exclude);
+            let parsed_variants = parser::parse_variants(arr, str_include, str_exclude);
             let response = tickets::get_tickets(tokens, parsed_variants, get_max).await;
             match response {
                 Ok(res) => return String::from(res),

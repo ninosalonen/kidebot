@@ -47,7 +47,7 @@ pub async fn get_tickets(
     let mut headers = HeaderMap::new();
     headers.insert(CONTENT_TYPE, "application/json".parse().unwrap());
 
-    for variant in &parsed_variants {
+    for variant in parsed_variants {
         let max_quantity = variant["productVariantMaximumReservableQuantity"].clone();
         let inventory_id = variant["inventoryId"].clone();
         let amount: Value = if get_max {

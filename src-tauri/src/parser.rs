@@ -1,6 +1,6 @@
 use serde_json::Value;
 
-fn clean_string(s: String) -> String {
+fn clean_string(s: &str) -> String {
     s.replace("\r\n", "")
         .replace("\n", "")
         .replace("\"", "")
@@ -15,23 +15,27 @@ pub fn input_parse(
     str_exclude: String,
     get_max: bool,
 ) -> (Vec<String>, String, String, String, bool) {
-    let tokens = clean_string(token)
+    let tokens = clean_string(&token)
         .split(",")
         .map(|slice| slice.to_string())
         .collect::<Vec<String>>();
-    let url = clean_string(url);
-    let str_include = clean_string(str_include).to_lowercase();
-    let str_exclude = clean_string(str_exclude).to_lowercase();
+    let url = clean_string(&url);
+    let str_include = clean_string(&str_include).to_lowercase();
+    let str_exclude = clean_string(&str_exclude).to_lowercase();
     (tokens, url, str_include, str_exclude, get_max)
 }
 
-pub fn parse_variants(variants: Vec<Value>, str_include: &str, str_exclude: &str) -> Vec<Value> {
-    let include_words = match str_include {
+pub fn parse_variants(
+    variants: Vec<Value>,
+    str_include: String,
+    str_exclude: String,
+) -> Vec<Value> {
+    let include_words = match &str_include {
         str if str.len() > 0 => str.rsplit(",").collect::<Vec<&str>>(),
         _ => vec![""],
     };
 
-    let exclude_words = match str_exclude {
+    let exclude_words = match &str_exclude {
         str if str.len() > 0 => str.rsplit(",").collect::<Vec<&str>>(),
         _ => vec![],
     };

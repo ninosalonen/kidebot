@@ -25,6 +25,11 @@ textarea {
     font: inherit;
 }
 
+input[type="radio"] {
+    width: 1.5em;
+    height: 1.5em;
+}
+
 button:hover {
     cursor: pointer;
 }

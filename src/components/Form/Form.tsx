@@ -85,7 +85,7 @@ const Form = () => {
 					className={styles.formField}
 					value={url}
 					onChange={(e) => setUrl(e.target.value)}
-					placeholder="https://kide.app/events/123-asd"
+					placeholder="https://kide.app/events/cbay-1385-123..."
 					autoCorrect="off"
 				/>
 			</label>
@@ -96,7 +96,7 @@ const Form = () => {
 					className={styles.formField}
 					value={include}
 					onChange={(e) => setInclude(e.target.value)}
-					placeholder="jvg,gatorade"
+					placeholder="e4,e3"
 					autoCorrect="off"
 				/>
 			</label>
@@ -107,7 +107,7 @@ const Form = () => {
 					className={styles.formField}
 					value={exclude}
 					onChange={(e) => setExclude(e.target.value)}
-					placeholder="william,doris"
+					placeholder="deluxe,a2"
 					autoCorrect="off"
 				/>
 			</label>
@@ -120,7 +120,7 @@ const Form = () => {
 						checked={getMax}
 						onChange={handleRadioChange}
 					/>
-					Max tickets
+					Maksimi
 				</label>
 
 				<label className={styles.formRadio}>
@@ -130,7 +130,7 @@ const Form = () => {
 						checked={!getMax}
 						onChange={handleRadioChange}
 					/>
-					1 ticket
+					1 lippu
 				</label>
 			</div>
 

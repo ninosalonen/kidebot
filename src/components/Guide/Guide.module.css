@@ -1,11 +1,33 @@
-h1 {
+.guideh1 {
     margin-top: 3rem;
+    margin-bottom: 2rem;
+}
+
+.guideh2{
+    margin-top: 2rem;
 }
 
 .guide {
+    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+}
+
+.guideText{
+    width: 90vw;
+    max-width: 60ch;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+    background-color: rgba(0, 0,0, 0.25);
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+.guideImg {
+    width: 90vw;
+    max-width: 80ch;
 }
 
 .guideBtn {
