@@ -5,5 +5,5 @@ export const popNotification = (
 	setter(msg)
 	setTimeout(() => {
 		setter('')
-	}, 5000)
+	}, 6000)
 }

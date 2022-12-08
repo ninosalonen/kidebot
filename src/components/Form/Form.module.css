@@ -12,18 +12,24 @@
     flex-direction: column;
 }
 
-.guideBtn {
+.guideBtn, .tokenBtn {
     margin: 0.5rem;
 }
 
 .formBtn {
     margin: 1rem;
+    background-color: white;
+    border: none;
+    border-radius: 4px;
 }
 
-.guideBtn {
+.formBtn:hover {
+    background-color: lightgray;
+}
+
+.tokenBtn, .guideBtn {
     position: fixed;
     top: 0;
-    left: 0;
     font-size: x-large;
     font-weight: bolder;
     color: white;
@@ -31,7 +37,15 @@
     background-color: transparent;
 }
 
-.guideBtn:focus, .guideBtn:hover {
+.tokenBtn {
+    right: 0;
+}
+
+.guideBtn {
+    left: 0;
+}
+
+.guideBtn:hover{
     color: black;
 }
 
@@ -40,6 +54,7 @@
     max-width: 60ch;
     margin-bottom: 1rem;
     padding: 0.3rem;
+    border-radius: 4px;
     border: 1px solid white;
     resize: none;
 }
@@ -63,5 +78,7 @@
     word-break: break-all;
     background-color: rgba(0,0,0,0.25);
     margin-top: 0.5rem;
+    margin-bottom: 1rem;
     padding: 1rem;
+    border-radius: 4px;
 }

@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { ChangeEvent, useState, useEffect } from 'react'
 import { invoke } from '@tauri-apps/api/tauri'
+import { exit } from '@tauri-apps/api/process'
+import { writeTextFile, readTextFile, BaseDirectory } from '@tauri-apps/api/fs'
 
 import Guide from '../Guide/Guide'
 import { popNotification } from '../../helpers/helpers'
@@ -12,8 +14,40 @@ const Form = () => {
 	const [exclude, setExclude] = useState('')
 	const [getMax, setGetMax] = useState(true)
 
+	const [cancel, setCancel] = useState(false)
 	const [notif, setNotif] = useState('')
 	const [guide, setGuide] = useState(false)
+
+	useEffect(() => {
+		readTextFile('.env.token', {
+			dir: BaseDirectory.Desktop,
+		})
+			.then((data) => {
+				setToken(data)
+			})
+			.catch((_) =>
+				popNotification(
+					setNotif,
+					'Voit tallentaa tokenisi oikeasta yläkulmasta!'
+				)
+			)
+	}, [])
+
+	const handleTokenSave = async () => {
+		try {
+			await writeTextFile('.env.token', token, {
+				dir: BaseDirectory.Desktop,
+			})
+			popNotification(setNotif, 'Token tallennettu!')
+		} catch (e: any) {
+			popNotification(setNotif, `Jokin meni pieleen: ${e}`)
+		}
+	}
+
+	const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const get_max = e.target.value === 'true'
+		get_max ? setGetMax(true) : setGetMax(false)
+	}
 
 	if (guide) return <Guide setGuide={setGuide} />
 
@@ -25,6 +59,13 @@ const Form = () => {
 				onClick={() => setGuide(true)}
 			>
 				?
+			</button>
+			<button
+				className={styles.tokenBtn}
+				type="button"
+				onClick={() => handleTokenSave()}
+			>
+				💾
 			</button>
 
 			<label className={styles.formLabel}>
@@ -76,8 +117,9 @@ const Form = () => {
 				<label className={styles.formRadio}>
 					<input
 						type="radio"
+						value="true"
 						checked={getMax}
-						onClick={() => setGetMax(true)}
+						onChange={handleRadioChange}
 					/>
 					Max tickets
 				</label>
@@ -85,8 +127,9 @@ const Form = () => {
 				<label className={styles.formRadio}>
 					<input
 						type="radio"
+						value="false"
 						checked={!getMax}
-						onClick={() => setGetMax(false)}
+						onChange={handleRadioChange}
 					/>
 					1 ticket
 				</label>
@@ -96,6 +139,9 @@ const Form = () => {
 				type="button"
 				className={styles.formBtn}
 				onClick={() => {
+					if (cancel) {
+						exit()
+					}
 					if (token.length === 0 || url.length === 0) {
 						popNotification(
 							setNotif,
@@ -104,16 +150,27 @@ const Form = () => {
 						return
 					}
 					setNotif('Odotetaan lippuja...')
-					invoke('get_tickets', { token, url, include, exclude, getMax }).then(
-						(message) => {
+					setCancel(true)
+					invoke('main_tickets', {
+						token,
+						url,
+						strInclude: include,
+						strExclude: exclude,
+						getMax,
+					})
+						.then((message) => {
 							if (typeof message === 'string') {
 								popNotification(setNotif, message)
+								setCancel(false)
 							}
-						}
-					)
+						})
+						.catch((e) => {
+							popNotification(setNotif, e)
+							setCancel(false)
+						})
 				}}
 			>
-				Hae lippuja
+				{cancel ? 'Cancel' : 'Hae lippuja'}
 			</button>
 
 			{notif.length > 0 ? <p className={styles.formNotif}>{notif}</p> : ''}
