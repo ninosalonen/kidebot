@@ -73,7 +73,7 @@ pub async fn get_tickets(
             .send()
             .await?;
         if res.status() != 200 {
-            return Ok("Jokin meni pieleen. Tarkista että tokenisi on oikein.".to_string());
+            return Ok("Jokin meni pieleen. Tarkista, että tokenisi on oikein.".to_string());
         }
     }
 
