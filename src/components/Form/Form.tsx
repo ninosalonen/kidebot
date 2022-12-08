@@ -1,6 +1,5 @@
 import { ChangeEvent, useState, useEffect } from 'react'
 import { invoke } from '@tauri-apps/api/tauri'
-import { exit } from '@tauri-apps/api/process'
 import { writeTextFile, readTextFile, BaseDirectory } from '@tauri-apps/api/fs'
 
 import Guide from '../Guide/Guide'
@@ -136,12 +135,10 @@ const Form = () => {
 			</div>
 
 			<button
+				disabled={cancel}
 				type="button"
 				className={styles.formBtn}
 				onClick={() => {
-					if (cancel) {
-						exit()
-					}
 					if (token.length === 0 || url.length === 0) {
 						popNotification(
 							setNotif,
@@ -149,7 +146,7 @@ const Form = () => {
 						)
 						return
 					}
-					setNotif('Odotetaan lippuja...')
+					setNotif('Odotetaan lippuja... (Sulje ohjelma jos haluat peruuttaa)')
 					setCancel(true)
 					invoke('main_tickets', {
 						token,
@@ -170,7 +167,7 @@ const Form = () => {
 						})
 				}}
 			>
-				{cancel ? 'Cancel' : 'Hae lippuja'}
+				Hae lippuja
 			</button>
 
 			{notif.length > 0 ? <p className={styles.formNotif}>{notif}</p> : ''}

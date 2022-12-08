@@ -23,8 +23,12 @@
     border-radius: 4px;
 }
 
-.formBtn:hover {
+.formBtn:not([disabled]):hover {
     background-color: lightgray;
+}
+
+.formBtn:is([disabled]):hover {
+    cursor: default;
 }
 
 .tokenBtn, .guideBtn {
