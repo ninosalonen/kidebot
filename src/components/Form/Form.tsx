@@ -41,7 +41,7 @@ const Form = () => {
 		try {
 			await createDir('', { dir: BaseDirectory.AppData, recursive: true })
 			await writeTextFile('token', token, {
-				dir: BaseDirectory.AppLocalData,
+				dir: BaseDirectory.AppData,
 			})
 			popNotification(setNotif, 'Token tallennettu!')
 		} catch (e: any) {
