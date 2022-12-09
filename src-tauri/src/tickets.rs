@@ -50,7 +50,6 @@ async fn get_ticket(
     client: &Client,
     headers: &HeaderMap,
 ) -> Result<String, reqwest::Error> {
-    println!("GETTING TICKET");
     let max_quantity = variant["productVariantMaximumReservableQuantity"].clone();
     let inventory_id = variant["inventoryId"].clone();
     let amount: Value = if get_max {
