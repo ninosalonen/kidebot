@@ -8,4 +8,5 @@ https://tauri.app/v1/guides/getting-started/prerequisites
 
 ## Build
 
+`npm install`
 `npm run tauri build`
