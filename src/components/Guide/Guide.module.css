@@ -1,6 +1,5 @@
 .guideh1 {
-    margin-top: 3rem;
-    margin-bottom: 2rem;
+    margin-top: 2.5rem;
 }
 
 .guideh2{
@@ -17,12 +16,13 @@
 
 .guideText{
     width: 90vw;
-    max-width: 60ch;
+    max-width: 80ch;
     margin-bottom: 1rem;
     margin-top: 0.5rem;
     background-color: rgba(0, 0,0, 0.25);
     padding: 1rem;
     border-radius: 4px;
+    white-space: pre-wrap;
 }
 
 .guideImg {

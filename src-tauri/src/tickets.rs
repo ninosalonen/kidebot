@@ -2,7 +2,6 @@ use futures::future::join_all;
 use reqwest::header::{HeaderMap, CONTENT_TYPE};
 use reqwest::{Client, StatusCode};
 use serde_json::Value;
-use tokio;
 
 async fn fetch_variants(api_url: &str) -> Result<Value, reqwest::Error> {
     let body_as_string = reqwest::get(api_url).await?.text().await?;
@@ -21,11 +20,13 @@ pub async fn wait_for_variants(url: String) -> Result<Value, reqwest::Error> {
     if !url.starts_with("https://kide.app/events") {
         return Ok(Value::Null);
     }
-    let event_id = url.rsplit('/').next().unwrap();
-    if event_id.len() < 30 {
-        return Ok(Value::Null);
-    }
-    let api_url = format!("https://api.kide.app/api/products/{}", event_id);
+
+    let event_id = url.rsplit('/').next();
+
+    let api_url = match event_id {
+        Some(id) if id.len() > 30 => format!("https://api.kide.app/api/products/{}", id),
+        _ => return Ok(Value::Null),
+    };
 
     for _ in 0..200 {
         let variants = fetch_variants(&api_url).await?;
@@ -78,7 +79,7 @@ async fn get_ticket(
     match res.status() {
         StatusCode::OK => {
             return Ok(format!(
-                "{} kpl {} saatu. (Tokenin loppu {}).\n",
+                "{} kpl {} saatu. (Tokenin loppu {}).\r\n",
                 amount,
                 variant["name"],
                 &token[token.len() - 5..]

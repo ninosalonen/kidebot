@@ -59,7 +59,6 @@ pub fn parse_variants(
 
     if new_variants.len() > 0 {
         return new_variants;
-    } else {
-        return old_variants;
-    };
+    }
+    return old_variants;
 }
