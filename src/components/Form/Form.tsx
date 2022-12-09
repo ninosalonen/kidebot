@@ -1,6 +1,11 @@
 import { ChangeEvent, useState, useEffect } from 'react'
 import { invoke } from '@tauri-apps/api/tauri'
-import { writeTextFile, readTextFile, BaseDirectory } from '@tauri-apps/api/fs'
+import {
+	writeTextFile,
+	readTextFile,
+	BaseDirectory,
+	createDir,
+} from '@tauri-apps/api/fs'
 
 import Guide from '../Guide/Guide'
 import { popNotification } from '../../helpers/helpers'
@@ -19,7 +24,7 @@ const Form = () => {
 
 	useEffect(() => {
 		readTextFile('token', {
-			dir: BaseDirectory.AppLocalData,
+			dir: BaseDirectory.AppData,
 		})
 			.then((data) => {
 				setToken(data)
@@ -34,6 +39,7 @@ const Form = () => {
 
 	const handleTokenSave = async () => {
 		try {
+			await createDir('', { dir: BaseDirectory.AppData, recursive: true })
 			await writeTextFile('token', token, {
 				dir: BaseDirectory.AppLocalData,
 			})
