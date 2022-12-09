@@ -14,7 +14,7 @@
 			"fs": {
 				"readFile": true,
 				"writeFile": true,
-				"scope": ["$DESKTOP/*"]
+				"scope": ["$APPDATA/*"]
 			}
 		},
 		"bundle": {

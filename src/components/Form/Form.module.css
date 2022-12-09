@@ -73,6 +73,10 @@
     align-items: center;
 }
 
+.formRadio>input {
+    margin-right: 0.2rem;
+}
+
 .formNotif {
     text-align: center;
     width: 90vw;

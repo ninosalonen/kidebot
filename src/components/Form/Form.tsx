@@ -18,8 +18,8 @@ const Form = () => {
 	const [guide, setGuide] = useState(false)
 
 	useEffect(() => {
-		readTextFile('.env.token', {
-			dir: BaseDirectory.Desktop,
+		readTextFile('token', {
+			dir: BaseDirectory.AppData,
 		})
 			.then((data) => {
 				setToken(data)
@@ -34,8 +34,8 @@ const Form = () => {
 
 	const handleTokenSave = async () => {
 		try {
-			await writeTextFile('.env.token', token, {
-				dir: BaseDirectory.Desktop,
+			await writeTextFile('token', token, {
+				dir: BaseDirectory.AppData,
 			})
 			popNotification(setNotif, 'Token tallennettu!')
 		} catch (e: any) {
