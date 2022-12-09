@@ -19,7 +19,7 @@ const Form = () => {
 
 	useEffect(() => {
 		readTextFile('token', {
-			dir: BaseDirectory.AppData,
+			dir: BaseDirectory.AppLocalData,
 		})
 			.then((data) => {
 				setToken(data)
@@ -35,7 +35,7 @@ const Form = () => {
 	const handleTokenSave = async () => {
 		try {
 			await writeTextFile('token', token, {
-				dir: BaseDirectory.AppData,
+				dir: BaseDirectory.AppLocalData,
 			})
 			popNotification(setNotif, 'Token tallennettu!')
 		} catch (e: any) {
