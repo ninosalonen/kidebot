@@ -1,6 +1,8 @@
+use futures::future::join_all;
 use reqwest::header::{HeaderMap, CONTENT_TYPE};
 use reqwest::{Client, StatusCode};
 use serde_json::Value;
+use tokio;
 
 async fn fetch_variants(api_url: &str) -> Result<Value, reqwest::Error> {
     let body_as_string = reqwest::get(api_url).await?.text().await?;
@@ -48,7 +50,7 @@ async fn get_ticket(
     client: &Client,
     headers: &HeaderMap,
 ) -> Result<String, reqwest::Error> {
-    println!("{}", token);
+    println!("GETTING TICKET");
     let max_quantity = variant["productVariantMaximumReservableQuantity"].clone();
     let inventory_id = variant["inventoryId"].clone();
     let amount: Value = if get_max {
@@ -84,7 +86,6 @@ async fn get_ticket(
             ));
         }
         _ => {
-            println!("{}", res.status());
             return Ok("".to_string());
         }
     };
@@ -100,11 +101,20 @@ pub async fn get_tickets(
     headers.insert(CONTENT_TYPE, "application/json".parse().unwrap());
 
     let mut response_string = String::from("");
+    let mut requests = vec![];
 
     for variant in &parsed_variants {
         for token in &tokens {
-            let got_ticket = get_ticket(variant, get_max, token, &client, &headers).await?;
-            response_string.push_str(&got_ticket);
+            let request = get_ticket(variant, get_max, token, &client, &headers);
+            requests.push(request)
+        }
+    }
+
+    let results = join_all(requests).await;
+    for result in results {
+        match result {
+            Ok(res) => response_string.push_str(&res),
+            _ => (),
         }
     }
 
