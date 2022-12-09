@@ -157,7 +157,7 @@ const Form = () => {
 					})
 						.then((message) => {
 							if (typeof message === 'string') {
-								popNotification(setNotif, message)
+								setNotif(message)
 								setCancel(false)
 							}
 						})

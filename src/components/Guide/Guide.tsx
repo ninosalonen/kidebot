@@ -60,9 +60,8 @@ const Guide = ({ setGuide }: PropsType) => {
 				On suositeltavaa, että haet lippuja n. 5-10 sekuntia ennen lipunmyynnin
 				alkua. En tiedä antaako Kide bännejä suuresta määrästä pyyntöjä, mutta
 				ei kannata lähteä kokeilemaan! Kun olet klikannut nappia, ei sinun
-				tarvitse enää tehdä mitään. Suosittelen myös kokeilemaan tätä johonkin
-				avoimeen lipunmyyntiin kerran ennen niitä kuumottavimpia lipunmyyntejä.
-				Voi sitten olla varma, että homma hoituu.
+				tarvitse enää tehdä mitään. Näet napin alla kaikki onnistuneesti
+				ostoskoriin lisätyt liput.
 			</p>
 		</div>
 	)

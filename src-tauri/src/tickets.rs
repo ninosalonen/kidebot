@@ -1,4 +1,5 @@
 use reqwest::header::{HeaderMap, CONTENT_TYPE};
+use reqwest::{Client, StatusCode};
 use serde_json::Value;
 
 async fn fetch_variants(api_url: &str) -> Result<Value, reqwest::Error> {
@@ -40,6 +41,55 @@ pub async fn wait_for_variants(url: String) -> Result<Value, reqwest::Error> {
     ))
 }
 
+async fn get_ticket(
+    variant: &Value,
+    get_max: bool,
+    token: &String,
+    client: &Client,
+    headers: &HeaderMap,
+) -> Result<String, reqwest::Error> {
+    println!("{}", token);
+    let max_quantity = variant["productVariantMaximumReservableQuantity"].clone();
+    let inventory_id = variant["inventoryId"].clone();
+    let amount: Value = if get_max {
+        max_quantity
+    } else {
+        serde_json::json!(1)
+    };
+
+    let body = serde_json::json!({
+        "toCreate": [{
+            "inventoryId": inventory_id,
+            "quantity": amount,
+            "productVariantUserForm": serde_json::json!(()),
+        }],
+        "toCancel": []
+    });
+
+    let res = client
+        .post("https://api.kide.app/api/reservations")
+        .bearer_auth(&token)
+        .headers(headers.clone())
+        .body(body.to_string())
+        .send()
+        .await?;
+
+    match res.status() {
+        StatusCode::OK => {
+            return Ok(format!(
+                "{} kpl {} saatu. (Tokenin loppu {}).\n",
+                amount,
+                variant["name"],
+                &token[token.len() - 5..]
+            ));
+        }
+        _ => {
+            println!("{}", res.status());
+            return Ok("".to_string());
+        }
+    };
+}
+
 pub async fn get_tickets(
     tokens: Vec<String>,
     parsed_variants: Vec<Value>,
@@ -49,35 +99,14 @@ pub async fn get_tickets(
     let mut headers = HeaderMap::new();
     headers.insert(CONTENT_TYPE, "application/json".parse().unwrap());
 
-    for variant in parsed_variants {
-        let max_quantity = variant["productVariantMaximumReservableQuantity"].clone();
-        let inventory_id = variant["inventoryId"].clone();
-        let amount: Value = if get_max {
-            max_quantity
-        } else {
-            serde_json::json!(1)
-        };
+    let mut response_string = String::from("");
 
-        let body = serde_json::json!({
-            "toCreate": [{
-                "inventoryId": inventory_id,
-                "quantity": amount,
-                "productVariantUserForm": serde_json::json!(()),
-            }],
-            "toCancel": []
-        });
-
-        let res = client
-            .post("https://api.kide.app/api/reservations")
-            .bearer_auth(tokens[0].clone())
-            .headers(headers.clone())
-            .body(body.to_string())
-            .send()
-            .await?;
-        if res.status() != 200 {
-            return Ok("Jokin meni pieleen. Tarkista, että tokenisi on oikein.".to_string());
+    for variant in &parsed_variants {
+        for token in &tokens {
+            let got_ticket = get_ticket(variant, get_max, token, &client, &headers).await?;
+            response_string.push_str(&got_ticket);
         }
     }
 
-    Ok("Liput hankittu!".to_string())
+    Ok(response_string)
 }

@@ -80,6 +80,7 @@
     width: 90vw;
     max-width: 60ch;
     word-break: break-all;
+    white-space: pre-wrap;
     background-color: rgba(0,0,0,0.25);
     margin-top: 0.5rem;
     margin-bottom: 1rem;

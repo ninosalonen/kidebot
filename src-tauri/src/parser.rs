@@ -6,6 +6,7 @@ fn clean_string(s: &str) -> String {
         .replace("\"", "")
         .replace("“", "")
         .replace(" ", "")
+        .replace("”", "")
 }
 
 pub fn input_parse(
