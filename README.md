@@ -9,9 +9,9 @@ A desktop app that gets you Kide tickets before they run out!
 You can download the application from the
 [releases](https://github.com/ninosalonen/kidebot/releases/) tab.
 
-Download the `.dmg` file if you use MacOS.
+Download the file ending in `.app.tar.gz` if you use MacOS.
 
-Download the `.msi` file if you use Windows.
+Download the file ending in `.msi` if you use Windows.
 
 ## Building the application
 
