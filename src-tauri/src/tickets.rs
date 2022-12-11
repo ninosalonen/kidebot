@@ -7,9 +7,17 @@ async fn fetch_variants(api_url: &str) -> Result<Value, reqwest::Error> {
     let body_as_string = reqwest::get(api_url).await?.text().await?;
     let event = serde_json::from_str(&body_as_string);
 
-    let body: Value = match event {
-        Ok(result) => result,
-        Err(_) => return Ok(serde_json::json!([])),
+    let body: Value = event.unwrap_or(Value::Null);
+    let body = match body {
+        Value::Object(obj) => {
+            if !obj.contains_key("model") {
+                return Ok(serde_json::json!(
+                    "Ei tapahtumaa olemassa kyseisellä URL-osoitteella."
+                ));
+            }
+            obj
+        }
+        _ => return Ok(Value::Null),
     };
 
     let variants = body["model"]["variants"].clone();
@@ -17,14 +25,16 @@ async fn fetch_variants(api_url: &str) -> Result<Value, reqwest::Error> {
 }
 
 pub async fn wait_for_variants(url: String) -> Result<Value, reqwest::Error> {
-    if !url.starts_with("https://kide.app/events") {
-        return Ok(Value::Null);
+    if !url.starts_with("https://kide.app/events/") {
+        return Ok(Value::String(
+            "Tarkista, että URL on muodossa: https://kide.app/events/[id]".to_string(),
+        ));
     }
 
     let event_id = url.rsplit('/').next();
 
     let api_url = match event_id {
-        Some(id) if id.len() > 30 => format!("https://api.kide.app/api/products/{}", id),
+        Some(id) if id.len() == 36 => format!("https://api.kide.app/api/products/{}", id),
         _ => return Ok(Value::Null),
     };
 
@@ -36,6 +46,7 @@ pub async fn wait_for_variants(url: String) -> Result<Value, reqwest::Error> {
                     return Ok(variants);
                 }
             }
+            Value::String(str) => return Ok(serde_json::json!(str.to_string())),
             _ => (),
         }
     }
