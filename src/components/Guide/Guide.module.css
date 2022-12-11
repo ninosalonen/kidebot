@@ -41,7 +41,3 @@
     font-weight: bolder;
     background-color: transparent;
 }
-
-.guideBtn:focus, .guideBtn:hover {
-    color: black;
-}
