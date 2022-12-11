@@ -49,3 +49,4 @@ jobs:
           releaseBody: ''
           releaseDraft: true
           prerelease: false
+          args: ${{ matrix.settings.args }}
