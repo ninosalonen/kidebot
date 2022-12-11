@@ -20,7 +20,7 @@ const Guide = ({ setGuide }: PropsType) => {
 			<p className={styles.guideText}>
 				Löydät tämän selaimen muistista, kun olet kirjautunut sisään Kide
 				appiin. Voit syöttää tokenin hipsukoilla tai ilman. Token menee vanhaksi
-				jossain vaiheessa. Hae uusi token aina muutaman kuukauden välein.
+				jossain vaiheessa, joten hae uusi token aina muutaman kuukauden välein.
 				{'\n\n'}
 				Jos et näe safarilla "inspect element"-painiketta: Safari Settings,
 				click advanced, then select "Show Develop menu in menu bar"
@@ -34,11 +34,11 @@ const Guide = ({ setGuide }: PropsType) => {
 			</p>
 			<h2 className={styles.guideh2}>Halutut liput</h2>
 			<p className={styles.guideText}>
-				Jos tiedät jatkoartistin esiintyvän jossain tietyssä paikassa, ja haluat
-				liput sinne, käytä tätä. Sinun täytyy arvella, mitä sanoja lipun nimessä
-				tulee olemaan, ja erottaa sanat pilkulla. Jos lipuilla ei ole väliä,
-				jätä tämä tyhjäksi.{'\n\n'}Esim. jos tiedät, että JVG esiintyy Gatorade
-				centerillä, kirjoitat: jvg,gatorade {'\n\n'}
+				Jos haluat joitain tiettyjä lippuja, käytä tätä. Sinun täytyy arvella,
+				mitä sanoja lipun nimessä tulee olemaan, ja erottaa sanat pilkulla. Voit
+				jättää tämän tyhjäksi, jos lipuilla ei ole väliä.{'\n\n'}Esim. jos
+				tiedät, että JVG esiintyy Gatorade Centerillä, kirjoitat: jvg,gatorade{' '}
+				{'\n\n'}
 				Jos arvatut sanat täsmäävät yhteen tai useampaan lippuun, ohjelma ottaa
 				ainoastaan kyseisiä lippuja. Jos yhtään lippua ei tullut myyntiin, jonka
 				nimessä on kyseisiä sanoja, siirtyy ohjelma hakemaan satunnaisesti
@@ -48,18 +48,18 @@ const Guide = ({ setGuide }: PropsType) => {
 			<p className={styles.guideText}>
 				Jos haluat olla saamatta joitain tiettyjä lippuja, käytä tätä. Sinun
 				täytyy arvella, mitä sanoja lipun nimessä tulee olemaan, ja erottaa
-				sanat pilkulla. Voit jättää tämän tyhjäksi.{'\n\n'}Esim. jos kaikki muut
-				liput käyvät, paitsi torstain ja perjantain liput, kirjoita:
+				sanat pilkulla. Voit jättää tämän myös tyhjäksi.{'\n\n'}Esim. jos kaikki
+				muut liput käyvät, paitsi torstain ja perjantain liput, kirjoita:
 				torstai,perjantai{'\n\n'}Jos suljet kaikki liput pois, ohjelma siirtyy
 				hakemaan satunnaisesti kaikkia lippuja.
 			</p>
 			<h2 className={styles.guideh2}>Hae lippuja</h2>
 			<p className={styles.guideText}>
-				Kun olet klikannut nappia, ei sinun tarvitse enää tehdä mitään. Näet
-				napin alla kaikki onnistuneesti ostoskoriin lisätyt liput.{'\n\n'}
-				On suositeltavaa, että haet lippuja n. 5-10 sekuntia ennen lipunmyynnin
-				alkua. En tiedä antaako Kide bännejä suuresta määrästä pyyntöjä, mutta
-				ei kannata lähteä kokeilemaan!
+				Kun olet klikannut nappia, työsi on tehty. Näet alla kaikki
+				onnistuneesti ostoskoriin lisätyt liput.{'\n\n'}
+				On suositeltavaa, että aloitat lippujen hakemisen n. 5 sekuntia ennen
+				lipunmyynnin alkua. En tiedä antaako Kide bännejä suuresta määrästä
+				pyyntöjä, mutta ei kannata lähteä kokeilemaan!
 			</p>
 		</div>
 	)
