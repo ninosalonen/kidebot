@@ -1,4 +1,4 @@
-# Kidebot GUI
+# Kidebot
 
 A desktop app that gets you Kide tickets before they run out!
 
