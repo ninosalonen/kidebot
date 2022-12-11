@@ -1,8 +1,5 @@
 name: 'publish'
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches: [main]
     types: [synchronize]
@@ -34,8 +31,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
-          releaseName: 'Kidebot v__VERSION__'
+          tagName: v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
+          releaseName: 'Kidebot __VERSION__'
           releaseBody: ''
           releaseDraft: true
           prerelease: false

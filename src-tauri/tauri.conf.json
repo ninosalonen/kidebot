@@ -7,7 +7,7 @@
 	},
 	"package": {
 		"productName": "Kidebot",
-		"version": "1.1.0"
+		"version": "1.1.1"
 	},
 	"tauri": {
 		"allowlist": {
@@ -32,17 +32,17 @@
 				"icons/128x128@2x.png",
 				"icons/icon.icns",
 				"icons/icon.ico",
-				"icon.png",
-				"Square30x30Logo.png",
-				"Square44x44Logo.png",
-				"Square71x71Logo.png",
-				"Square89x89Logo.png",
-				"Square107x107Logo.png",
-				"Square142x142Logo.png",
-				"Square150x150Logo.png",
-				"Square284x284Logo.png",
-				"Square310x310Logo.png",
-				"StoreLogo.png"
+				"icons/icon.png",
+				"icons/Square30x30Logo.png",
+				"icons/Square44x44Logo.png",
+				"icons/Square71x71Logo.png",
+				"icons/Square89x89Logo.png",
+				"icons/Square107x107Logo.png",
+				"icons/Square142x142Logo.png",
+				"icons/Square150x150Logo.png",
+				"icons/Square284x284Logo.png",
+				"icons/Square310x310Logo.png",
+				"icons/StoreLogo.png"
 			],
 			"identifier": "com.ninosalonen.kidebot",
 			"longDescription": "",
@@ -71,10 +71,10 @@
 		"windows": [
 			{
 				"fullscreen": false,
-				"height": 720,
+				"height": 900,
 				"resizable": true,
 				"title": "Kidebot",
-				"width": 1280
+				"width": 700
 			}
 		]
 	}
