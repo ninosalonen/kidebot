@@ -2,6 +2,8 @@
 
 A desktop app that gets you Kide tickets before they run out!
 
+![Pictures of the UI](public/interface.png 'Kidebot')
+
 ## Building the application
 
 If you want to build the application by yourself, follow the steps below.
