@@ -10,7 +10,7 @@ You can download the application from the releases tab.
 
 [Releases](https://github.com/ninosalonen/kidebot/releases/)
 
-## Building the application
+## Building the applicatio
 
 If you want to build the application by yourself, follow the steps below.
 
