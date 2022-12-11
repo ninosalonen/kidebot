@@ -24,7 +24,7 @@ jobs:
           - platform: 'windows-latest'
             args: '--target i686-pc-windows-msvc'
 
-    runs-on: ${{ matrix.platform }}
+    runs-on: ${{ matrix.settings.platform }}
     steps:
       - uses: actions/checkout@v3
       - name: setup node
