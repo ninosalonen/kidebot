@@ -6,9 +6,12 @@ A desktop app that gets you Kide tickets before they run out!
 
 ## Downloading the application
 
-You can download the application from the releases tab.
+You can download the application from the
+[releases](https://github.com/ninosalonen/kidebot/releases/) tab.
 
-[Releases](https://github.com/ninosalonen/kidebot/releases/)
+Download the `.dmg` file if you use MacOS.
+
+Download the `.msi` file if you use Windows.
 
 ## Building the application
 
@@ -16,9 +19,8 @@ If you want to build the application by yourself, follow the steps below.
 
 ### 1. Prerequisites
 
-Depending on your operating system, install the dependencies from the link below.
-
-https://tauri.app/v1/guides/getting-started/prerequisites
+Depending on your operating system, install the needed
+[dependencies](https://tauri.app/v1/guides/getting-started/prerequisites).
 
 ### 2. Build
 
