@@ -8,7 +8,7 @@ A desktop app that gets you Kide tickets before they run out!
 
 You can download the application from the releases tab.
 
-[Download](https://github.com/ninosalonen/kidebot_gui/releases)
+[Download](https://github.com/ninosalonen/kidebot/releases)
 
 ## Building the application
 
