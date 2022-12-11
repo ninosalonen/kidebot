@@ -63,7 +63,7 @@ const Form = () => {
 				type="button"
 				onClick={() => setGuide(true)}
 			>
-				❓
+				❔
 			</button>
 			<button
 				className={styles.tokenBtn}
