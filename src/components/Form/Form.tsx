@@ -63,7 +63,7 @@ const Form = () => {
 				type="button"
 				onClick={() => setGuide(true)}
 			>
-				?
+				❓
 			</button>
 			<button
 				className={styles.tokenBtn}
@@ -86,7 +86,7 @@ const Form = () => {
 			</label>
 
 			<label className={styles.formLabel}>
-				Event URL*
+				Tapahtuman URL*
 				<input
 					className={styles.formField}
 					value={url}
@@ -97,7 +97,7 @@ const Form = () => {
 			</label>
 
 			<label className={styles.formLabel}>
-				Tavoiteliput
+				Halutut liput
 				<input
 					className={styles.formField}
 					value={include}
@@ -108,7 +108,7 @@ const Form = () => {
 			</label>
 
 			<label className={styles.formLabel}>
-				Poissulje
+				Karsittavat liput
 				<input
 					className={styles.formField}
 					value={exclude}
@@ -148,7 +148,7 @@ const Form = () => {
 					if (token.length === 0 || url.length === 0) {
 						popNotification(
 							setNotif,
-							'Kentät Token ja Event URL ovat pakollisia!'
+							'Kentät Token ja Tapahtuman URL ovat pakollisia!'
 						)
 						return
 					}

@@ -13,40 +13,45 @@ const Guide = ({ setGuide }: PropsType) => {
 				type="button"
 				onClick={() => setGuide(false)}
 			>
-				X
+				❌
 			</button>
 			<h1 className={styles.guideh1}>Ohjeet</h1>
 			<h2 className={styles.guideh2}>Token</h2>
 			<p className={styles.guideText}>
-				Löydät tämän selaimen muistista, kun olet kirjautunut sisään Kide appiin
-				selaimella. Voit syöttää tokenin hipsukoilla tai ilman. Token menee
-				vanhaksi jossain vaiheessa. Hae aina uusi token muutaman/parin kuukauden
-				jälkeen.
+				Löydät tämän selaimen muistista, kun olet kirjautunut sisään Kide
+				appiin. Voit syöttää tokenin hipsukoilla tai ilman. Token menee vanhaksi
+				jossain vaiheessa. Hae uusi token aina muutaman kuukauden välein.
 				{'\n\n'}
 				Jos et näe safarilla "inspect element"-painiketta: Safari Settings,
 				click advanced, then select "Show Develop menu in menu bar"
 			</p>
 			<img className={styles.guideImg} src="kuva2.png"></img>
 			<img className={styles.guideImg} src="kuva1.png"></img>
-			<h2 className={styles.guideh2}>Event URL</h2>
+			<h2 className={styles.guideh2}>Tapahtuman URL</h2>
 			<p className={styles.guideText}>
 				Tarkista, että se on muodossa:
 				https://kide.app/events/f155c3c1-dd29-4f32-9fb4-3da5fd6f3c4a
 			</p>
-			<h2 className={styles.guideh2}>Tavoiteliput</h2>
+			<h2 className={styles.guideh2}>Halutut liput</h2>
 			<p className={styles.guideText}>
 				Jos tiedät jatkoartistin esiintyvän jossain tietyssä paikassa, ja haluat
-				liput sinne, käytä tätä.{'\n\n'}
-				Sanotaan, että tiedät JVG:n esiintyvän Gatorade centerillä. Kirjoitat:
-				jvg,gatorade (Jos yhtään lippua ei tullut myyntiin, jonka nimessä on jvg
-				tai gatorade, siirtyy ohjelma hakemaan satunnaisesti kaikkia lippuja)
+				liput sinne, käytä tätä. Sinun täytyy arvella, mitä sanoja lipun nimessä
+				tulee olemaan, ja erottaa sanat pilkulla. Jos lipuilla ei ole väliä,
+				jätä tämä tyhjäksi.{'\n\n'}Esim. jos tiedät, että JVG esiintyy Gatorade
+				centerillä, kirjoitat: jvg,gatorade {'\n\n'}
+				Jos arvatut sanat täsmäävät yhteen tai useampaan lippuun, ohjelma ottaa
+				ainoastaan kyseisiä lippuja. Jos yhtään lippua ei tullut myyntiin, jonka
+				nimessä on kyseisiä sanoja, siirtyy ohjelma hakemaan satunnaisesti
+				kaikkia lippuja.
 			</p>
-			<h2 className={styles.guideh2}>Poissulje</h2>
+			<h2 className={styles.guideh2}>Karsittavat liput</h2>
 			<p className={styles.guideText}>
-				Jos haluat olla saamatta joitain tiettyjä lippuja, käytä tätä.
-				{'\n\n'}Esim. jos kaikki muut liput käyvät, paitsi torstain ja
-				perjantain liput, kirjoita: torstai,perjantai. (Jos suljet kaikki liput
-				pois, ohjelma siirtyy hakemaan satunnaisesti kaikkia lippuja)
+				Jos haluat olla saamatta joitain tiettyjä lippuja, käytä tätä. Sinun
+				täytyy arvella, mitä sanoja lipun nimessä tulee olemaan, ja erottaa
+				sanat pilkulla. Voit jättää tämän tyhjäksi.{'\n\n'}Esim. jos kaikki muut
+				liput käyvät, paitsi torstain ja perjantain liput, kirjoita:
+				torstai,perjantai{'\n\n'}Jos suljet kaikki liput pois, ohjelma siirtyy
+				hakemaan satunnaisesti kaikkia lippuja.
 			</p>
 			<h2 className={styles.guideh2}>Hae lippuja</h2>
 			<p className={styles.guideText}>

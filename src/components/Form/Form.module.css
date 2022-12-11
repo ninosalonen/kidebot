@@ -49,10 +49,6 @@
     left: 0;
 }
 
-.guideBtn:hover{
-    color: black;
-}
-
 .formField {
     width: 90vw;
     max-width: 60ch;
