@@ -38,7 +38,7 @@ jobs:
         with:
           tagName: v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
           releaseName: 'Kidebot __VERSION__'
-          releaseBody: ''
+          releaseBody: 'The `.msi` file is for Windows. The `.dmg` and `.app.tar.gz` (easier installation) files are for MacOS.'
           releaseDraft: true
           prerelease: false
           args: ${{ matrix.settings.args }}

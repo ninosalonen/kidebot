@@ -25,7 +25,7 @@ async fn fetch_variants(api_url: &str) -> Result<Value, reqwest::Error> {
 }
 
 pub async fn wait_for_variants(url: String) -> Result<Value, reqwest::Error> {
-    if !url.starts_with("https://kide.app/events/") {
+    if !url.starts_with("https://kide.app") {
         return Ok(Value::String(
             "Tarkista, että URL on muodossa: https://kide.app/events/[id]".to_string(),
         ));
