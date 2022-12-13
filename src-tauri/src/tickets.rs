@@ -42,7 +42,7 @@ pub async fn wait_for_variants(url: String) -> Result<Value, reqwest::Error> {
         let variants = fetch_variants(&api_url).await?;
         match &variants {
             Value::Array(arr) => {
-                if arr.len() > 0 {
+                if !arr.is_empty() {
                     return Ok(variants);
                 }
             }
@@ -88,18 +88,14 @@ async fn get_ticket(
         .await?;
 
     match res.status() {
-        StatusCode::OK => {
-            return Ok(format!(
-                "{} kpl {} saatu. (Tokenin loppu {}).\r\n",
-                amount,
-                variant["name"],
-                &token[token.len() - 5..]
-            ));
-        }
-        _ => {
-            return Ok("".to_string());
-        }
-    };
+        StatusCode::OK => Ok(format!(
+            "{} kpl {} saatu. (Tokenin loppu {}).\r\n",
+            amount,
+            variant["name"],
+            &token[token.len() - 5..]
+        )),
+        _ => Ok("".to_string()),
+    }
 }
 
 pub async fn get_tickets(
@@ -111,7 +107,6 @@ pub async fn get_tickets(
     let mut headers = HeaderMap::new();
     headers.insert(CONTENT_TYPE, "application/json".parse().unwrap());
 
-    let mut response_string = String::from("");
     let mut requests = vec![];
 
     for variant in &parsed_variants {
@@ -122,12 +117,12 @@ pub async fn get_tickets(
     }
 
     let results = join_all(requests).await;
-    for result in results {
-        match result {
-            Ok(res) => response_string.push_str(&res),
-            _ => (),
-        }
-    }
 
-    Ok(response_string)
+    let res_string: String = results
+        .into_iter()
+        .filter_map(|result| result.ok())
+        .collect::<Vec<String>>()
+        .join("");
+
+    Ok(res_string)
 }
