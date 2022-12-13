@@ -2,11 +2,11 @@ use serde_json::Value;
 
 fn clean_string(s: &str) -> String {
     s.replace("\r\n", "")
-        .replace("\n", "")
-        .replace("\"", "")
-        .replace("“", "")
-        .replace(" ", "")
-        .replace("”", "")
+        .replace('\n', "")
+        .replace('\"', "")
+        .replace('“', "")
+        .replace(' ', "")
+        .replace('”', "")
 }
 
 pub fn input_parse(
@@ -17,7 +17,7 @@ pub fn input_parse(
     get_max: bool,
 ) -> (Vec<String>, String, String, String, bool) {
     let tokens = clean_string(&token)
-        .split(",")
+        .split(',')
         .map(|slice| slice.to_string())
         .collect::<Vec<String>>();
     let url = clean_string(&url);
@@ -32,12 +32,12 @@ pub fn parse_variants(
     str_exclude: String,
 ) -> Vec<Value> {
     let include_words = match &str_include {
-        str if str.len() > 0 => str.rsplit(",").collect::<Vec<&str>>(),
+        str if !str.is_empty() => str.rsplit(',').collect::<Vec<&str>>(),
         _ => vec![""],
     };
 
     let exclude_words = match &str_exclude {
-        str if str.len() > 0 => str.rsplit(",").collect::<Vec<&str>>(),
+        str if !str.is_empty() => str.rsplit(',').collect::<Vec<&str>>(),
         _ => vec![],
     };
 
@@ -57,8 +57,8 @@ pub fn parse_variants(
         })
         .collect::<Vec<Value>>();
 
-    if new_variants.len() > 0 {
+    if !new_variants.is_empty() {
         return new_variants;
     }
-    return old_variants;
+    old_variants
 }
