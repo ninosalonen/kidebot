@@ -2,11 +2,7 @@ use serde_json::Value;
 
 fn clean_string(s: &str) -> String {
     s.replace("\r\n", "")
-        .replace('\n', "")
-        .replace('\"', "")
-        .replace('“', "")
-        .replace(' ', "")
-        .replace('”', "")
+        .replace(['\n', '\"', '“', ' ', '”'], "")
 }
 
 pub fn input_parse(
