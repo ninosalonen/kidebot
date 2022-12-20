@@ -81,7 +81,7 @@ async fn get_ticket(
 
     let res = client
         .post("https://api.kide.app/api/reservations")
-        .bearer_auth(&token)
+        .bearer_auth(token)
         .headers(headers.clone())
         .body(body.to_string())
         .send()
