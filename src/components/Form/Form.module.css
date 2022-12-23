@@ -14,6 +14,13 @@
 
 .guideBtn, .tokenBtn {
     margin: 0.5rem;
+    position: fixed;
+    top: 0;
+    font-size: x-large;
+    font-weight: bolder;
+    color: white;
+    border: 0px;
+    background-color: transparent;
 }
 
 .formBtn {
@@ -29,16 +36,6 @@
 
 .formBtn:is([disabled]):hover {
     cursor: default;
-}
-
-.tokenBtn, .guideBtn {
-    position: fixed;
-    top: 0;
-    font-size: x-large;
-    font-weight: bolder;
-    color: white;
-    border: 0px;
-    background-color: transparent;
 }
 
 .tokenBtn {
