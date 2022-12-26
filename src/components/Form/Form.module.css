@@ -23,6 +23,14 @@
     background-color: transparent;
 }
 
+.tokenBtn {
+    right: 0;
+}
+
+.guideBtn {
+    left: 0;
+}
+
 .formBtn {
     margin: 1rem;
     background-color: white;
@@ -36,14 +44,6 @@
 
 .formBtn:is([disabled]):hover {
     cursor: default;
-}
-
-.tokenBtn {
-    right: 0;
-}
-
-.guideBtn {
-    left: 0;
 }
 
 .formField {

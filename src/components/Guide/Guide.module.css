@@ -1,17 +1,17 @@
-.guideh1 {
-    margin-top: 2.5rem;
-}
-
-.guideh2 {
-    margin-top: 2rem;
-}
-
 .guide {
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.guideh1 {
+    margin-top: 2.5rem;
+}
+
+.guideh2 {
+    margin-top: 2rem;
 }
 
 .guideText {

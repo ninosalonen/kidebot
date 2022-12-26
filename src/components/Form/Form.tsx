@@ -8,20 +8,32 @@ import {
 } from '@tauri-apps/api/fs'
 
 import Guide from '../Guide/Guide'
-import { popNotification } from '../../helpers/helpers'
 import styles from './Form.module.css'
 
+// Set notifications that disappear after
+const popNotification = (
+	setter: React.Dispatch<React.SetStateAction<string>>,
+	msg: string
+) => {
+	setter(msg)
+	setTimeout(() => {
+		setter('')
+	}, 6000)
+}
+
 const Form = () => {
+	// User input
 	const [token, setToken] = useState('')
 	const [url, setUrl] = useState('')
 	const [include, setInclude] = useState('')
 	const [exclude, setExclude] = useState('')
 	const [getMax, setGetMax] = useState(true)
 
-	const [cancel, setCancel] = useState(false)
-	const [notif, setNotif] = useState('')
-	const [guide, setGuide] = useState(false)
+	const [disableButton, setDisableButton] = useState(false)
+	const [notification, setNotification] = useState('')
+	const [guideOpen, setGuideOpen] = useState(false)
 
+	// When app is launched, try to read the saved token from a file
 	useEffect(() => {
 		readTextFile('token', {
 			dir: BaseDirectory.AppData,
@@ -31,21 +43,22 @@ const Form = () => {
 			})
 			.catch((_) =>
 				popNotification(
-					setNotif,
+					setNotification,
 					'Voit tallentaa tokenisi oikeasta yläkulmasta!'
 				)
 			)
 	}, [])
 
+	// Save token to a file, called when the SSD emoji is pressed.
 	const handleTokenSave = async () => {
 		try {
 			await createDir('', { dir: BaseDirectory.AppData, recursive: true })
 			await writeTextFile('token', token, {
 				dir: BaseDirectory.AppData,
 			})
-			popNotification(setNotif, 'Token tallennettu!')
+			popNotification(setNotification, 'Token tallennettu!')
 		} catch (e: any) {
-			popNotification(setNotif, `Jokin meni pieleen: ${e}`)
+			popNotification(setNotification, `Jokin meni pieleen: ${e}`)
 		}
 	}
 
@@ -54,14 +67,14 @@ const Form = () => {
 		get_max ? setGetMax(true) : setGetMax(false)
 	}
 
-	if (guide) return <Guide setGuide={setGuide} />
+	if (guideOpen) return <Guide setGuide={setGuideOpen} />
 
 	return (
 		<form className={styles.form}>
 			<button
 				className={styles.guideBtn}
 				type="button"
-				onClick={() => setGuide(true)}
+				onClick={() => setGuideOpen(true)}
 			>
 				❔
 			</button>
@@ -141,19 +154,23 @@ const Form = () => {
 			</div>
 
 			<button
-				disabled={cancel}
+				disabled={disableButton}
 				type="button"
 				className={styles.formBtn}
 				onClick={() => {
 					if (token.length === 0 || url.length === 0) {
 						popNotification(
-							setNotif,
+							setNotification,
 							'Kentät Token ja Tapahtuman URL ovat pakollisia!'
 						)
 						return
 					}
-					setNotif('Odotetaan lippuja... (Sulje ohjelma jos haluat peruuttaa)')
-					setCancel(true)
+					setNotification(
+						'Odotetaan lippuja... (Sulje ohjelma jos haluat peruuttaa)'
+					)
+					setDisableButton(true)
+
+					// Call Rust function to handle getting the tickets.
 					invoke('main_tickets', {
 						token,
 						url,
@@ -163,20 +180,24 @@ const Form = () => {
 					})
 						.then((message) => {
 							if (typeof message === 'string') {
-								setNotif(message)
-								setCancel(false)
+								setNotification(message)
+								setDisableButton(false)
 							}
 						})
 						.catch((e) => {
-							popNotification(setNotif, e)
-							setCancel(false)
+							popNotification(setNotification, e)
+							setDisableButton(false)
 						})
 				}}
 			>
 				Hae lippuja
 			</button>
 
-			{notif.length > 0 ? <p className={styles.formNotif}>{notif}</p> : ''}
+			{notification.length > 0 ? (
+				<p className={styles.formNotif}>{notification}</p>
+			) : (
+				''
+			)}
 		</form>
 	)
 }
