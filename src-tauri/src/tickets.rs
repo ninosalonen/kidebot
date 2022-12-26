@@ -3,6 +3,10 @@ use reqwest::header::{HeaderMap, CONTENT_TYPE};
 use reqwest::{Client, StatusCode};
 use serde_json::Value;
 
+/*
+    Fetch the the variants (empty or not). Returns a serde_json Array.
+    If URL id was bad, return early with a serde_json String.
+*/
 async fn fetch_variants(api_url: &str) -> Result<Value, reqwest::Error> {
     let body_as_string = reqwest::get(api_url).await?.text().await?;
     let event = serde_json::from_str(&body_as_string);
@@ -24,7 +28,12 @@ async fn fetch_variants(api_url: &str) -> Result<Value, reqwest::Error> {
     Ok(variants)
 }
 
+/*
+    Wait until variants is not empty and return a serde_json Array of variants.
+    Stop trying after 200 tries.
+*/
 pub async fn wait_for_variants(url: String) -> Result<Value, reqwest::Error> {
+    /* URL validation */
     if !url.starts_with("https://kide.app") {
         return Ok(Value::String(
             "Tarkista, että URL on muodossa: https://kide.app/events/[id]".to_string(),
@@ -38,6 +47,7 @@ pub async fn wait_for_variants(url: String) -> Result<Value, reqwest::Error> {
         _ => return Ok(Value::Null),
     };
 
+    /* If URL was valid, start waiting for tickets */
     for _ in 0..200 {
         let variants = fetch_variants(&api_url).await?;
         match &variants {
@@ -55,6 +65,11 @@ pub async fn wait_for_variants(url: String) -> Result<Value, reqwest::Error> {
     ))
 }
 
+/*
+    Makes a single call to get one ticket for one token.
+    Return an empty String if the request was not successful.
+    If the request was successful, return a String of information.
+*/
 async fn get_ticket(
     variant: &Value,
     get_max: bool,
@@ -62,6 +77,7 @@ async fn get_ticket(
     client: &Client,
     headers: &HeaderMap,
 ) -> Result<String, reqwest::Error> {
+    /* Prepare the request body */
     let max_quantity = variant["productVariantMaximumReservableQuantity"].clone();
     let inventory_id = variant["inventoryId"].clone();
     let amount: Value = if get_max {
@@ -98,6 +114,11 @@ async fn get_ticket(
     }
 }
 
+/*
+    For every single combination of tokens and parsed_variants, make a request with get_ticket()
+    Wait for all to complete and collect the return Strings into a single response String and return it.
+    This return String will be shown to the user on the UI.
+*/
 pub async fn get_tickets(
     tokens: Vec<String>,
     parsed_variants: Vec<Value>,

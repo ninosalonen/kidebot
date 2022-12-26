@@ -14,24 +14,6 @@
 
 .guideBtn, .tokenBtn {
     margin: 0.5rem;
-}
-
-.formBtn {
-    margin: 1rem;
-    background-color: white;
-    border: none;
-    border-radius: 4px;
-}
-
-.formBtn:not([disabled]):hover {
-    background-color: lightgray;
-}
-
-.formBtn:is([disabled]):hover {
-    cursor: default;
-}
-
-.tokenBtn, .guideBtn {
     position: fixed;
     top: 0;
     font-size: x-large;
@@ -47,6 +29,21 @@
 
 .guideBtn {
     left: 0;
+}
+
+.formBtn {
+    margin: 1rem;
+    background-color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+.formBtn:not([disabled]):hover {
+    background-color: lightgray;
+}
+
+.formBtn:is([disabled]):hover {
+    cursor: default;
 }
 
 .formField {

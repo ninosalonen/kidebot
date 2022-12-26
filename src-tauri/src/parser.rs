@@ -5,6 +5,10 @@ fn clean_string(s: &str) -> String {
         .replace(['\n', '\"', '“', ' ', '”'], "")
 }
 
+/*
+    Removes all unwanted characters from the input arguments.
+    Splits multiple tokens separated by a comma into a vec of tokens.
+*/
 pub fn input_parse(
     token: String,
     url: String,
@@ -22,6 +26,10 @@ pub fn input_parse(
     (tokens, url, str_include, str_exclude, get_max)
 }
 
+/*
+    Removes all unwanted ticket types from variants using str_include and str_exclude.
+    If new filtered_variants is empty, return all variants without any filters.
+*/
 pub fn parse_variants(
     variants: Vec<Value>,
     str_include: String,
